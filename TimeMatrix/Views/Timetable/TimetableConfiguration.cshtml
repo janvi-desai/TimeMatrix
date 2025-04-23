@@ -1,0 +1,33 @@
+﻿@model TimetableConfiguration
+@{
+    ViewData["Title"] = "Configure Timetable Parameters";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Provide Basic Configuration for Timetable Generation</h2>
+
+    <form asp-action="TimetableConfiguration" method="post" novalidate>
+        <div class="mb-3">
+            <label asp-for="WorkingDays" class="form-label"></label>
+            <input asp-for="WorkingDays" class="form-control" />
+            <span asp-validation-for="WorkingDays" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="SubjectsPerDay" class="form-label"></label>
+            <input asp-for="SubjectsPerDay" class="form-control" />
+            <span asp-validation-for="SubjectsPerDay" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TotalSubjects" class="form-label"></label>
+            <input asp-for="TotalSubjects" class="form-control" />
+            <span asp-validation-for="TotalSubjects" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Allocate Hours to Subject &gt;&gt;</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

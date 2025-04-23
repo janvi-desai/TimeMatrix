@@ -1,0 +1,61 @@
+﻿@model TimetableAllocation
+@{
+    ViewData["Title"] = "Allocate Hours to Subjects";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Allocate Hours for Each Subject &mdash; Total Available Hours: @(Model?.TotalHours ?? 0)</h2>
+
+    <form asp-action="SubjectHourAllocation" method="post" novalidate>
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+        {
+            <div class="alert alert-danger mt-0" role="alert">
+                <h6 class="alert-heading">Please review the following issues:</h6>
+                <div asp-validation-summary="ModelOnly"></div>
+            </div>
+        }
+
+        @if (Model?.Subjects != null)
+        {
+            <input type="hidden" asp-for="TotalHours" />
+            <input type="hidden" asp-for="TimetableConfiguration.WorkingDays" />
+            <input type="hidden" asp-for="TimetableConfiguration.SubjectsPerDay" />
+            <input type="hidden" asp-for="TimetableConfiguration.TotalSubjects" />
+
+            <div class="row">
+                @for (int i = 0; i < Model?.Subjects?.Count; i++)
+                {
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Subjects[i].SubjectName" class="form-label"></label>
+                        <input asp-for="Subjects[i].SubjectName" class="form-control" />
+                        <span asp-validation-for="Subjects[i].SubjectName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Subjects[i].Hours" class="form-label"></label>
+                        <input asp-for="Subjects[i].Hours" class="form-control" />
+                        <span asp-validation-for="Subjects[i].Hours" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-warning">
+                    No subjects found. Please go back and configure your timetable.
+                </div>
+            </div>
+        }
+        <button type="submit" class="btn btn-success">Generate Timetable</button>
+        <a asp-controller="Timetable" asp-action="TimetableConfiguration" class="btn btn-outline-secondary">
+            &larr; Back to Configuration
+        </a>
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

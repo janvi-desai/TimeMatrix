@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container text-center mt-5">
+    <div class="p-5 bg-light rounded shadow-sm">
+        <h1 class="display-5 fw-bold text-success mb-4">
+            Say Goodbye to Scheduling Hassles
+        </h1>
+        <h4 class="text-secondary mb-4">
+            Generate Your Custom Timetable with <span class="text-primary">Time Matrix</span>.
+        </h4>
+        <a class="btn btn-success btn-lg" asp-controller="Timetable" asp-action="TimetableConfiguration">
+            Generate Timetable Now
+        </a>
+        <p class="mt-4 text-muted">
+            Want to learn more about how it's built? Check out
+            <a href="https://learn.microsoft.com/aspnet/core" target="_blank" class="text-decoration-underline">
+                building web apps with ASP.NET Core
+            </a>.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model TimetableViewModel
+@{
+    ViewData["Title"] = "Timetable Unlocked";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Your Timetable Has Been Successfully Generated !!</h2>
+
+    @if (Model?.Timetable != null && Model?.Timetable[0]?.Count > 0 && Model?.Timetable[0] != null)
+    {
+        <table class="table table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    @for (int i = 0; i < Model?.Timetable[0]?.Count; i++)
+                    {
+                        <th>@Model.Timetable[0][i]</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model?.Timetable?.Skip(1))
+                {
+                    <tr>
+                        @foreach (var cell in row)
+                        {
+                            <td>@cell</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else {
+        <div class="alert alert-warning">No TimeTable data available.</div>
+    }
+</div>
